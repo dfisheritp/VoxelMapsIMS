@@ -1,0 +1,63 @@
+<resources>
+    <string name="app_name">Voxel</string>
+
+    <!-- FIREBASE -->
+    <string name="firebase_url">https://your-firebase-url.com</string>
+    <string name="firebase_apikey">your-firebase-api-key</string>
+
+    <!-- AIRTABLE -->
+    <string name="airtable_endpoint">https://your-airtable-endpoint.com</string>
+    <string name="airtable_apikey">your-airtable-api-key</string>
+
+    <string name="employee_table">employee</string>
+
+    <string name="employee_table_email_column">email</string>
+    <string name="employee_table_employeeId_column">employeeId</string>
+    <string name="employee_table_preferredName_column">preferredName</string>
+    <string name="employee_table_supervisorId_column">supervisorId</string>
+    <string name="employee_table_teamId_column">teamId</string>
+
+    <string name="employeeLocation_table">employee_location</string>
+    <string name="location_table_employeeId_column">employeeId</string>
+    <string name="location_table_departureDate_column">departureDate</string>
+    <string name="location_table_currentStreetLines_column">currentStreetLines</string>
+    <string name="location_table_currentCity_column">currentCity</string>
+    <string name="location_table_currentStateOrProvince_column">currentStateOrProvince</string>
+    <string name="location_table_currentPostalCode_column">currentPostalCode</string>
+    <string name="location_table_currentCountryCode_column">currentCountryCode</string>
+    <string name="location_table_arrivalDate_column">arrivalDate</string>
+    <string name="location_table_nextStreetLines_column">nextStreetLines</string>
+    <string name="location_table_nextCity_column">nextCity</string>
+    <string name="location_table_nextStateOrProvince_column">nextStateOrProvince</string>
+    <string name="location_table_nextPostalCode_column">nextPostalCode</string>
+    <string name="location_table_nextCountryCode_column">nextCountryCode</string>
+
+    <string name="inventory_table">inventory</string>
+    <string name="inventory_table_serialNumber_column">serialNumber</string>
+    <string name="inventory_table_productId_column">productId</string>
+    <string name="inventory_table_picture_column">picture</string>
+    <string name="inventory_table_notes_column">notes</string>
+
+    <string name="ownership_table">ownership</string>
+    <string name="ownership_table_serialNumber_column">serialNumber</string>
+    <string name="ownership_table_previousOwnerId_column">previousOwnerId</string>
+    <string name="ownership_table_lastShipped_column">lastShipped</string>
+    <string name="ownership_table_lastReceived_column">lastReceived</string>
+
+    <string name="product_table">product</string>
+    <string name="product_table_productId_column">productId</string>
+    <string name="product_table_manufacturer_column">manufacturer</string>
+    <string name="product_table_productName_column">productName</string>
+    <string name="product_table_productNumber_column">productNumber</string>
+    <string name="product_table_weight_column">weight</string>
+    <string name="product_table_value_column">value</string>
+    <string name="product_table_batteryType_column">batteryType</string>
+    <string name="product_table_numberOfCells_column">numberOfCells</string>
+    <string name="product_table_totalCapacity_column">totalCapacity</string>
+    <string name="product_table_currentCharge_column">currentCharge</string>
+
+    <!-- FEDEX -->
+    <string name="fedex_endpoint">https://your-fedex-endpoint.com</string>
+    <string name="fedex_apikey">your-fedex-api-key</string>
+
+</resources>
