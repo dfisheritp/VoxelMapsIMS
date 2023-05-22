@@ -8,6 +8,7 @@
     <!-- AIRTABLE -->
     <string name="airtable_endpoint">https://your-airtable-endpoint.com</string>
     <string name="airtable_apikey">your-airtable-api-key</string>
+    <!-- TODO configure airtable api key with PoLP -->
 
     <string name="employee_table">employee</string>
 
@@ -59,5 +60,13 @@
     <!-- FEDEX -->
     <string name="fedex_endpoint">https://your-fedex-endpoint.com</string>
     <string name="fedex_apikey">your-fedex-api-key</string>
+    <!-- TODO configure fedex api key for battery shipments -->
+
+    <!-- PREFERENCES TODO What is the replacement for the @deprecated PreferenceScreen -->
+    <string name="pref_key_auto_sign_in">auto_sign_in</string>
+    <string name="pref_key_dark_mode">dark_mode</string>
+
+    <!-- Launching Fragment -->
+    <string name="tester">Please don\'t see double.</string>
 
 </resources>

@@ -1,71 +1,60 @@
 package dev.xplatform.voxel.controller.airtable;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import android.content.Context;
 
-import dev.xplatform.voxel.R;
-import dev.xplatform.voxel.model.Employee;
+import android.content.Context;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import dev.xplatform.voxel.R;
+import dev.xplatform.voxel.model.Employee;
+import static dev.xplatform.voxel.controller.airtable.AirtableController.AIRTABLE;
 
 /**
  * The EmployeeController class handles the retrieval and manipulation of employee data.
+ * FIXME decide on the way to build out the controller classes and stop refactoring like a noob
  */
-public class EmployeeController
-{
+public class EmployeeController {
 
-    private static List<Employee> employeeList = new ArrayList<>();
-    private static Context context;
-    private static Employee currentEmployee;
+    private static final EmployeeController EMPLOYEE = new EmployeeController();
 
-    public static void setContext(Context appContext)
-    {
-        context = appContext;
-    }
+    private Context context;
+    private Employee currentEmployee;
+    private List<Employee> employees = new ArrayList<>();
+
 
     /**
      * Sets the currently logged-in employee based on the provided email address.
      * This method should be called when the user successfully logs in.
+     * TODO cache the employee list so if the user logs out and logs back in without restarting the
+     *  application reducing logging in time and extra api calls. Cache will last until the system
+     *  time has gone to the next day.
      *
      * @param email The email address of the currently logged-in employee.
      */
-    public static void setCurrentEmployee(String email) {
+    public void initialize(Context context, String email)
+    {
+        this.context = context;
         currentEmployee = getEmployeeByEmail(email);
+        employees = retrieveEmployeesFromAirtable();
     }
 
     /**
      * Retrieves a list of employees from the Airtable API and creates Employee objects.
      *
-     * @param context    The context object to access resources.
      * @return A list of Employee objects retrieved from Airtable.
      */
-    public static List<Employee> retrieveEmployeesFromAirtable(Context context)
-    {
-        String airtableEndpoint = context.getString(R.string.airtable_endpoint);
-        String airtableApiKey = context.getString(R.string.airtable_apikey);
+    private List<Employee> retrieveEmployeesFromAirtable() {
         String employeeTable = context.getString(R.string.employee_table);
-
-        String apiUrl = airtableEndpoint + "/" + employeeTable;
-
-        // Make the API request
-        String jsonResponse = makeApiRequest(apiUrl, airtableApiKey);
-
-        // Parse the JSON response
-        Gson gson = new Gson();
-        JsonObject responseJson = gson.fromJson(jsonResponse, JsonObject.class);
-        JsonArray records = responseJson.getAsJsonArray("records");
+        JsonArray records = AIRTABLE.getRecords(employeeTable);
 
         // Create Employee objects from the JSON data
         List<Employee> employees = new ArrayList<>();
-        for (JsonElement recordElement : records)
-        {
-            JsonObject record = recordElement.getAsJsonObject();
-            JsonObject fields = record.getAsJsonObject("fields");
+        for (JsonElement recordElement : records) {
+            JsonObject fields = AIRTABLE.getFields(recordElement);
 
             // Extract the relevant data from the fields object
             String email = fields.get(context.getString(R.string.employee_table_email_column)).getAsString();
@@ -80,26 +69,7 @@ public class EmployeeController
             // Add the Employee object to the list
             employees.add(employee);
         }
-
         return employees;
-    }
-
-    /**
-     * Makes an API request to the specified URL with the provided authorization token.
-     *
-     * @param apiUrl     The URL of the API endpoint.
-     * @param authToken  The authorization token for the API.
-     * @return The JSON response as a string.
-     */
-    private static String makeApiRequest(String apiUrl, String authToken) {
-        // Implement the logic to make the API request here
-        // You can use libraries like OkHttp or HttpURLConnection to make the HTTP request
-
-        // Example using cURL command
-        // String command = "curl -H \"Authorization: Bearer " + authToken + "\" " + apiUrl;
-        // ... execute the command and get the response
-
-        return ""; // Replace with the actual API request and response handling logic
     }
 
     /**
@@ -108,12 +78,9 @@ public class EmployeeController
      * @param email The email address of the employee to retrieve.
      * @return The Employee object representing the employee with the given email address, or null if not found.
      */
-    public static Employee getEmployeeByEmail(String email)
-    {
-        for (Employee employee : employeeList)
-        {
-            if (employee.getEmail().equalsIgnoreCase(email))
-            {
+    public static Employee getEmployeeByEmail(String email) {
+        for (Employee employee : EMPLOYEE.employees) {
+            if (employee.getEmail().equalsIgnoreCase(email)) {
                 return employee;
             }
         }
@@ -126,13 +93,10 @@ public class EmployeeController
      * @param employee The Employee object representing the employee.
      * @return The Employee object representing the immediate supervisor, or null if not found.
      */
-    public static Employee getImmediateSupervisor(Employee employee)
-    {
+    public static Employee getImmediateSupervisor(Employee employee) {
         int supervisorId = employee.getSupervisorId();
-        for (Employee emp : employeeList)
-        {
-            if (emp.getEmployeeId() == supervisorId)
-            {
+        for (Employee emp : EMPLOYEE.employees) {
+            if (emp.getEmployeeId() == supervisorId) {
                 return emp;
             }
         }

@@ -7,6 +7,7 @@ import com.google.gson.JsonObject;
 import android.content.Context;
 
 import dev.xplatform.voxel.R;
+import dev.xplatform.voxel.model.Address;
 import dev.xplatform.voxel.model.Employee;
 import dev.xplatform.voxel.model.EmployeeLocation;
 
@@ -16,5 +17,7 @@ import java.util.List;
 
 public class EmployeeLocationController
 {
+    private static List<Address> addresses = new ArrayList<>();
+
 
 }
