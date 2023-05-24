@@ -30,7 +30,7 @@ public class AirtableController {
     private OkHttpClient httpClient;
     private Gson gson;
 
-    static final AirtableController AIRTABLE = new AirtableController();
+    public static final AirtableController AIRTABLE = new AirtableController();
 
     /**
      * Initializes the AirtableController with the provided context.

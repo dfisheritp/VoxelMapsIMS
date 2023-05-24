@@ -2,6 +2,8 @@ package dev.xplatform.voxel.model;
 
 import java.time.LocalDate;
 
+import dev.xplatform.voxel.model.shipping.Address;
+
 /**
  * The EmployeeLocation class represents the location information of an employee.
  * It contains details such as the employee's ID, current address, departure date,

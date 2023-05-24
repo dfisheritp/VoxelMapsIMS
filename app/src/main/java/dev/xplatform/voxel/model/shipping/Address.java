@@ -1,6 +1,8 @@
-package dev.xplatform.voxel.model;
+package dev.xplatform.voxel.model.shipping;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * The Address class represents a physical address.
@@ -9,14 +11,37 @@ public class Address {
     private List<String> streetLines;
     private String city;
     private String stateOrProvince;
-    private String postalCode;
-    private String countryCode;
+    private PostalCode postalCode;
 
     /**
      * Default constructor for the Address class.
      */
-    public Address() {
+    protected Address() {
         // Default constructor is required for Java beans
+    }
+
+    public Address(String[] streetLines, String city, String stateOrProvince, PostalCode postalCode)
+    {
+        this.streetLines = Arrays.asList(streetLines);
+        this.city = city;
+        this.stateOrProvince = stateOrProvince;
+        this.postalCode = postalCode;
+    }
+
+    public Address(String[] streetLines, String city, String stateOrProvince, Locale locale)
+    {
+        this.streetLines = Arrays.asList(streetLines);
+        this.city = city;
+        this.stateOrProvince = stateOrProvince;
+        this.postalCode = new PostalCode(locale);
+    }
+
+    public Address(String[] streetLines, String city, String stateOrProvince, String postalCode, String country)
+    {
+        this.streetLines = Arrays.asList(streetLines);
+        this.city = city;
+        this.stateOrProvince = stateOrProvince;
+        this.postalCode = new PostalCode(postalCode, );
     }
 
     /**

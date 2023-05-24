@@ -67,6 +67,14 @@
     <string name="pref_key_dark_mode">dark_mode</string>
 
     <!-- Launching Fragment -->
-    <string name="tester">Please don\'t see double.</string>
+    <string name="btn_sign_in">Sign-in</string>
+    <string name="bypass_email_hint">Bypass Sign-in Email</string>
+    <string name="bypass_btn">Bypass Sign-in</string>
+    <string name="host_domain">xplatform.dev</string>
+    <string name="host_domain_regex">^\S*@%1$s$</string>
+    <string name="formatted_host_domain_regex">@string/host_domain_regex</string>
+
+
+
 
 </resources>

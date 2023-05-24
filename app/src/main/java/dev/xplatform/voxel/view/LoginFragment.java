@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,8 +27,14 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.android.gms.common.api.ApiException;
 
-import dev.xplatform.voxel.R;
+import static dev.xplatform.voxel.controller.airtable.AirtableController.AIRTABLE;
 
+import dev.xplatform.voxel.R;
+import dev.xplatform.voxel.controller.airtable.AirtableController;
+
+/**
+ * Fragment responsible for handling the login functionality.
+ */
 public class LoginFragment extends Fragment {
 
     private static final String TAG = "LoginFragment";
@@ -79,14 +86,41 @@ public class LoginFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         // Handle sign-in button click
         view.findViewById(R.id.btn_sign_in).setOnClickListener(v -> signIn());
+        view.findViewById(R.id.bypass_button).setOnClickListener(v -> bypassLogin());
     }
 
+    /**
+     * Perform the bypass login process.
+     * This method is triggered when the bypass button is clicked.
+     * It checks the entered email address and generates dummy data if it matches the expected format.
+     */
+    private void bypassLogin()
+    {
+        // Perform actions to bypass the login process
+        // This can include populating the application with dummy data
+        // or any other functionality you desire when bypassing the login.
+        String email = ((EditText) getView().findViewById(R.id.bypassSigninEmailAddress)).getText().toString().trim();
+        if (email.matches(getString(R.string.formatted_host_domain_regex, getString(R.string.host_domain)))) {
+
+        }
+    }
+
+    /**
+     * Initiates the Google Sign-In flow by launching the Google Sign-In intent.
+     * This method is triggered when the sign-in button is clicked.
+     */
     private void signIn() {
         // Launch the Google Sign-In intent
         Intent signInIntent = googleSignInClient.getSignInIntent();
         signInLauncher.launch(signInIntent);
     }
 
+    /**
+     * Handles the result of the Google Sign-In intent.
+     * This method is called after the user signs in with their Google account.
+     *
+     * @param data The intent data containing the sign-in result.
+     */
     private void handleSignInResult(Intent data) {
         try {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
@@ -99,6 +133,12 @@ public class LoginFragment extends Fragment {
         }
     }
 
+    /**
+     * Authenticates the user with Firebase using the Google Sign-In credentials.
+     * This method is called after the user successfully signs in with their Google account.
+     *
+     * @param account The GoogleSignInAccount containing the user's sign-in information.
+     */
     private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
         AuthCredential credential = GoogleAuthProvider
                 .getCredential(account.getIdToken(), getContext().getString(R.string.firebase_apikey));
@@ -115,9 +155,18 @@ public class LoginFragment extends Fragment {
                         // Sign-in failed, log a message to the console
                         Log.w(TAG, "signInWithCredential:failure", task.getException());
                     }
-                });
+                });9
     }
 
+    /**
+     * Verifies the email domain of the signed-in user.
+     * This method performs email domain verification using the Google Identity Platform or Firebase Authentication.
+     * You should implement the necessary verification logic based on your chosen authentication method.
+     * Compare the email domain with the work domain or use an API to validate it.
+     * Upon successful verification, proceed with the desired app functionality.
+     *
+     * @param email The email address obtained from the signed-in user.
+     */
     private void verifyEmailDomain(String email) {
         // Perform email domain verification using the Google Identity Platform or Firebase Authentication
         // Use the email address obtained from the signed-in user to validate the domain.
